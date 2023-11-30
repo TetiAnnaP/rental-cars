@@ -1,61 +1,44 @@
-import { Suspense, lazy } from 'react';
-import { ColorRing } from 'react-loader-spinner';
 import { NavLink, Routes, Route } from 'react-router-dom';
 import { styled } from 'styled-components';
+import HomePage from 'pages/HomePage';
+import Catalog from 'pages/Catalog';
+import Favorites from 'pages/Favorites';
 
-const HomePage = lazy(() => import('pages/HomePage'));
-const MoviesPage = lazy(() => import('pages/MoviesPage'));
-const MoviesDetailsPage = lazy(() => import('pages/MoviesDetailsPage'));
-const NotFound = lazy(() => import('pages/NotFound'));
-
-const StyledHeader = styled.header`
-  padding: 20px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+const StyledWrapper = styled.div`
+  padding: 128px 128px 150px 128px;
+  font-family: 'Manrope', sans-serif;
 `;
-const StyledNavLink = styled(NavLink)`
-  display: inline-block;
-  font-size: 30px;
+const StyledHeader = styled.header`
+  display: flex;
+  gap: 20px;
+`;
+const StylesNavLink = styled(NavLink)`
+  font-weight: 500;
+  font-size: 20px;
+  text-transform: uppercase;
   text-decoration: none;
-  color: black;
-  margin-right: 20px;
+  color: #121417;
 
   &.active {
-    color: red;
+    color: #3470ff;
   }
 `;
 
 export const App = () => {
   return (
-    <div>
+    <StyledWrapper>
       <StyledHeader>
-        <nav>
-          <StyledNavLink to="/">Home</StyledNavLink>
-          <StyledNavLink to="/movies">Movies</StyledNavLink>
-        </nav>
+        <StylesNavLink to="/">Home</StylesNavLink>
+        <StylesNavLink to="/catalog">Catalog</StylesNavLink>
+        <StylesNavLink to="favorites">Favorites</StylesNavLink>
       </StyledHeader>
       <main>
-        <Suspense
-          fallback={
-            <ColorRing
-              visible={true}
-              height="80"
-              width="80"
-              ariaLabel="blocks-loading"
-              wrapperStyle={{}}
-              wrapperClass="blocks-wrapper"
-              colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-            />
-          }
-        >
-          <Routes>
-            <Route path="/" element={<HomePage />}></Route>
-            <Route path="/movies/*" element={<MoviesPage />}></Route>
-            <Route path="/movies/:id/*" element={<MoviesDetailsPage />}></Route>
-            <Route path="*" element={<NotFound />}></Route>
-          </Routes>
-        </Suspense>
+        <Routes>
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/catalog" element={<Catalog />}></Route>
+          <Route path="favorites" element={<Favorites />}></Route>
+        </Routes>
       </main>
-    </div>
+    </StyledWrapper>
   );
 };
