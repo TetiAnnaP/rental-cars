@@ -1,0 +1,85 @@
+.form {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: 14px;
+  color: #8a8a89;
+}
+
+.input {
+  padding-left: 18px;
+  margin-top: 8px;
+  margin-right: 18px;
+  height: 48px;
+  border: none;
+  border-radius: 14px;
+  background-color: #f7f7fb;
+
+  font-weight: 500;
+  font-size: 18px;
+
+  &::placeholder {
+    color: #121417;
+    opacity: 1;
+  }
+
+  &:hover::placeholder {
+    color: #3470ff;
+  }
+
+  &:focus::placeholder {
+    color: #3470ff;
+  }
+}
+
+.brand {
+  width: 224px;
+}
+
+.price {
+  width: 125px;
+}
+
+.from {
+  width: 160px;
+  margin-right: 0;
+  border-right: solid 1px #e1e1e4;
+  border-radius: 14px 0 0 14px;
+  padding-left: 24px;
+}
+
+.to {
+  width: 160px;
+  border-radius: 0 14px 14px 0;
+  padding-left: 24px;
+}
+
+.button {
+  width: 136px;
+  height: 48px;
+  border: none;
+  border-radius: 14px;
+  background-color: #3470ff;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+
+  &:hover {
+    background-color: #0b44cd;
+  }
+
+  &:focus {
+    background-color: #0b44cd;
+  }
+}

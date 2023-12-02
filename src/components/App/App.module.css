@@ -1,0 +1,27 @@
+.container {
+  max-width: 1440px;
+  padding: 75px 128px 150px 128px;
+  font-family: 'Manrope', sans-serif;
+}
+
+.header {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 75px;
+}
+
+.link {
+  font-weight: 500;
+  font-size: 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #121417;
+
+  &:hover {
+    color: #3470ff;
+  }
+
+  &:focus {
+    color: #3470ff;
+  }
+}
