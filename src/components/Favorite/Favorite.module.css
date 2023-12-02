@@ -1,0 +1,10 @@
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  stroke: white;
+  stroke-width: 2px;
+  fill: none;
+}

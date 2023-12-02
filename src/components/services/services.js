@@ -15,3 +15,18 @@ export const getCars = async () => {
   // console.log(data.results);
   return data;
 };
+
+export const loadMore = async page => {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+    },
+  };
+
+  const { data } = await axios.get(
+    `https://64f3a2bfedfa0459f6c6b959.mockapi.io/cars?page=${page}&limit=12`,
+    options
+  );
+  return data;
+};
