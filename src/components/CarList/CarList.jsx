@@ -1,40 +1,60 @@
 import css from './CarList.module.css';
-import { getCars } from '../services/services';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Favorite from 'components/Favorite/Favorite';
-import templCar from '../../images/Templ.png';
+import templCar from '../../images/templ.png';
+import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectCarList,
+  selectPage,
+  selectShowModal,
+  setId,
+  setPage,
+  setShowModal,
+} from 'redux/rootReducer';
+import { getCarByIdThunk, getCarsThunk } from '../../thunk/thunk';
+import Modal from 'components/Modal/Modal';
 
 const CarList = () => {
-  const [carsList, setCarsList] = useState([]);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const page = useSelector(selectPage);
+  const carsList = useSelector(selectCarList);
+  const showModal = useSelector(selectShowModal);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getCars();
-        console.log(data);
-        setCarsList(data);
-      } catch (error) {
-        // console.log(error.message);
-        setError(error.massage);
-      }
-    };
+    dispatch(getCarsThunk());
+  }, [dispatch]);
 
-    fetchData();
-  }, []);
+  const handleBtnLearnMoreClick = e => {
+    const id = e.currentTarget.id;
+
+    dispatch(setId(id));
+    dispatch(setShowModal(true));
+    dispatch(getCarByIdThunk(id));
+  };
+
+  const handleBtnLoadMoreClick = () => {
+    const newPage = page + 1;
+    dispatch(setPage(newPage));
+    dispatch(getCarsThunk(newPage));
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'auto',
+    });
+  };
 
   return (
     <>
-      <div className={css.container}>
-        <ul></ul>
-
+      {carsList.length === 0 && <div>"There are no more cars"</div>}
+      <ul>
         {carsList.map(car => (
-          <li key={car.id}>
-            <div className={css.thumb}>
+          <li key={nanoid()}>
+            <div className={css.thumb} id={car.id}>
               <div>
                 <img
                   className={css.img}
-                  src={car.img}
+                  src={car.img || { templCar }}
                   alt={car.make}
                   onError={e => {
                     e.currentTarget.src = templCar;
@@ -54,16 +74,27 @@ const CarList = () => {
                 </p>
               </div>
 
-              <button className={css.buttonLearnMore} type="submit">
+              <button
+                className={css.buttonLearnMore}
+                type="button"
+                id={car.id}
+                onClick={handleBtnLearnMoreClick}
+              >
                 Learn more
               </button>
             </div>
           </li>
         ))}
-      </div>
-      <button className={css.btnLoadMore} type="submit">
+      </ul>
+
+      <button
+        className={css.btnLoadMore}
+        type="button"
+        onClick={handleBtnLoadMoreClick}
+      >
         Load more
       </button>
+      {showModal && <Modal />}
     </>
   );
 };
