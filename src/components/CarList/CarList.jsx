@@ -47,9 +47,9 @@ const CarList = () => {
   return (
     <>
       {carsList.length === 0 && <div>"There are no more cars"</div>}
-      <ul>
+      <ul className={css.carList}>
         {carsList.map(car => (
-          <li key={nanoid()}>
+          <li key={nanoid()} className={css.carListItem}>
             <div className={css.thumb} id={car.id}>
               <div>
                 <img

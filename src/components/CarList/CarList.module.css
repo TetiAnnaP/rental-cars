@@ -1,9 +1,9 @@
-li {
+.carListItem {
   list-style-type: none;
   width: calc((100% - 3 * 29px) / 4);
 }
 
-ul {
+.carList {
   display: flex;
   flex-wrap: wrap;
   /* justify-content: center; */
