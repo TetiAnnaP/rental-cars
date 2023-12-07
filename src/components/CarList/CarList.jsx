@@ -1,6 +1,6 @@
 import css from './CarList.module.css';
-import { useEffect } from 'react';
-import Favorite from 'components/Favorite/Favorite';
+import { useEffect, useState } from 'react';
+import FavoriteIcon from 'components/FavoriteIcon/FavoriteIcon';
 import templCar from '../../images/templ.png';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,13 +21,28 @@ const CarList = () => {
   const carsList = useSelector(selectCarList);
   const showModal = useSelector(selectShowModal);
 
+  const [favorites, setFavorites] = useState([]);
+
+  const updateFavorite = element => {
+    setFavorites(prev => [...prev, element]);
+  };
+
   useEffect(() => {
+    console.log('favorites', favorites);
+    localStorage.setItem('Favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  useEffect(() => {
+    if (carsList.length > 0) {
+      return;
+    }
     dispatch(getCarsThunk());
-  }, [dispatch]);
+    // console.log('on mount');
+  }, [dispatch, carsList.length]);
 
   const handleBtnLearnMoreClick = e => {
+    document.body.className = 'scrolLock';
     const id = e.currentTarget.id;
-
     dispatch(setId(id));
     dispatch(setShowModal(true));
     dispatch(getCarByIdThunk(id));
@@ -60,7 +75,11 @@ const CarList = () => {
                     e.currentTarget.src = templCar;
                   }}
                 />
-                <Favorite />
+                <FavoriteIcon
+                  id={car.id}
+                  updateState={updateFavorite}
+                  favoritesArr={favorites}
+                />
                 <p className={css.makeyear}>
                   {car.make}
                   <span className={css.span}> {car.model} </span>, {car.year}

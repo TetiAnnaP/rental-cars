@@ -42,6 +42,11 @@
   }
 }
 
+.placeholder:hover,
+.placeholder:focus {
+  color: #3470ff;
+}
+
 .brand {
   width: 224px;
 }

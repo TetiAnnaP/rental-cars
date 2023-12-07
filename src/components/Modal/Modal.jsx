@@ -1,14 +1,47 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import css from './Modal.module.css';
 import templCar from '../../images/templ.png';
-import { selectCarById } from 'redux/rootReducer';
+import { selectCarById, setCarById, setShowModal } from 'redux/rootReducer';
 import { nanoid } from 'nanoid';
+import CloseIcon from '../CloseIcon/CloseIcon';
+import { useEffect } from 'react';
 
 const Modal = () => {
+  const dispatch = useDispatch();
   const car = useSelector(selectCarById)[0];
 
+  const handleCloseBtn = () => {
+    dispatch(setShowModal(false));
+    dispatch(setCarById([]));
+    document.body.className = '';
+  };
+
+  const handleBackdropClick = e => {
+    if (e.target === e.currentTarget) {
+      dispatch(setShowModal(false));
+      document.body.className = '';
+    }
+  };
+
+  const handleKeyDown = e => {
+    if (e.code === 'Escape') {
+      dispatch(setShowModal(false));
+      document.body.className = '';
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+  });
+
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  });
+
   return (
-    <>
+    <div className={css.backdrop} onClick={handleBackdropClick}>
       {car && (
         <div className={css.container}>
           <img
@@ -81,18 +114,31 @@ const Modal = () => {
           </ul>
           <ul className={css.conditionsList}>
             <li className={css.conditionsItem}>
-              Mileage: <span className={css.colorNum}>{car.mileage}</span>
+              Mileage:{' '}
+              <span className={css.colorNum}>
+                {car.mileage.toLocaleString('en-US')}
+              </span>
             </li>
             <li className={css.conditionsItem}>
-              Price: <span className={css.colorNum}>{car.rentalPrice}</span>
+              Price:{' '}
+              <span className={css.colorNum}>
+                {car.rentalPrice.match(/\d/g)}$
+              </span>
             </li>
           </ul>
-          <button className={css.btnRentalCar} type="button">
+          <a className={css.btnRentalCar} href="tel: +380730000000">
             Rental car
+          </a>
+          <button
+            className={css.closeBtn}
+            type="button"
+            onClick={handleCloseBtn}
+          >
+            <CloseIcon />
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -3,10 +3,11 @@ li {
 }
 
 .container {
+  position: relative;
   width: calc(540px - 40px * 2);
-  height: calc(752px - 40px * 2);
+  min-height: calc(752px - 40px * 2);
   padding: 40px;
-  background-color: rgb(189, 187, 193);
+  background-color: white;
   border-radius: 25px;
   font-family: 'Manrope', sans-serif;
 }
@@ -16,6 +17,8 @@ li {
   height: 248px;
   border-radius: 25px;
   margin-bottom: 14px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .carTitle {
@@ -85,11 +88,36 @@ li {
 }
 
 .btnRentalCar {
-  width: 168px;
+  display: block;
+  width: calc(168px - 45px * 2);
   background-color: #3470ff;
   border: none;
   border-radius: 12px;
   padding: 12px 50px;
   color: white;
   margin-top: 24px;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1200;
 }

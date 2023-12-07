@@ -1,8 +1,5 @@
-.body {
-  font-family: 'Manrope', sans-serif;
-}
-
 .container {
+  font-family: 'Manrope', sans-serif;
   width: 1440px;
   padding: 75px 128px 150px 128px;
 }
