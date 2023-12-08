@@ -95,4 +95,4 @@ export const selectCarById = state => state.cars.carById;
 export const selectShowModal = state => state.cars.showModal;
 // export const selectAllCars = state => state.cars.allCars;
 
-export const rootReducer = carsSlice.reducer;
+export const carReducer = carsSlice.reducer;

@@ -8,13 +8,22 @@ export const App = () => {
   return (
     <div className={css.container}>
       <header className={css.header}>
-        <NavLink className={css.link} to="/">
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? css.active : css.link)}
+        >
           Home
         </NavLink>
-        <NavLink className={css.link} to="/catalog">
+        <NavLink
+          to="/catalog"
+          className={({ isActive }) => (isActive ? css.active : css.link)}
+        >
           Catalog
         </NavLink>
-        <NavLink className={css.link} to="favorites">
+        <NavLink
+          to="favorites"
+          className={({ isActive }) => (isActive ? css.active : css.link)}
+        >
           Favorites
         </NavLink>
       </header>

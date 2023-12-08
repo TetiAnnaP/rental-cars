@@ -2,28 +2,34 @@ import { ReactSVG } from 'react-svg';
 import heart from 'images/heart.svg';
 import css from './FavoriteIcon.module.css';
 import { useSelector } from 'react-redux';
-import { selectCarList } from 'redux/rootReducer';
+import { selectCarList } from 'redux/carReducer';
 
-const FavoriteIcon = ({ id, updateState, favoritesArr }) => {
+const FavoriteIcon = ({ id, addFavorite, favoritesArr, removeFavorite }) => {
   const cars = useSelector(selectCarList);
-  // console.log(cars);
+  const favorite =
+    favoritesArr.length > 0 && favoritesArr.find(el => el === id);
 
   const handleClick = () => {
-    console.log(id);
     const car = cars.find(el => el.id === id);
-    // console.log(car);
-    console.log(favoritesArr);
+    const isInFavorite =
+      favoritesArr.length > 0 && favoritesArr.find(fav => fav === car.id);
 
-    const isIdExist =
-      favoritesArr.length > 0 && favoritesArr.find(fav => fav.id === car.id);
-    console.log(isIdExist);
-
-    if (!isIdExist) {
-      updateState(car);
+    if (isInFavorite) {
+      removeFavorite(car.id);
+    } else {
+      addFavorite(car.id);
     }
+    console.log('id', id);
+    console.log('favoritesArr', favoritesArr);
   };
 
-  return <ReactSVG className={css.heart} src={heart} onClick={handleClick} />;
+  return (
+    <ReactSVG
+      className={favorite ? css.removeFromFavorite : css.addToFavorite}
+      src={heart}
+      onClick={handleClick}
+    />
+  );
 };
 
 export default FavoriteIcon;

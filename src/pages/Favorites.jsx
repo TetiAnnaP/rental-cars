@@ -1,7 +1,11 @@
-import React from 'react';
+import Form from '../components/Form/Form';
 
 const Favorites = () => {
-  return <h1>Favorites</h1>;
+  return (
+    <>
+      <Form />
+    </>
+  );
 };
 
 export default Favorites;

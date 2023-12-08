@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import css from './Modal.module.css';
 import templCar from '../../images/templ.png';
-import { selectCarById, setCarById, setShowModal } from 'redux/rootReducer';
+import { selectCarById, setCarById, setShowModal } from 'redux/carReducer';
 import { nanoid } from 'nanoid';
 import CloseIcon from '../CloseIcon/CloseIcon';
 import { useEffect } from 'react';

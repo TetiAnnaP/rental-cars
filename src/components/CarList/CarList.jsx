@@ -11,7 +11,7 @@ import {
   setId,
   setPage,
   setShowModal,
-} from 'redux/rootReducer';
+} from 'redux/carReducer';
 import { getCarByIdThunk, getCarsThunk } from '../../thunk/thunk';
 import Modal from 'components/Modal/Modal';
 
@@ -23,19 +23,26 @@ const CarList = () => {
 
   const [favorites, setFavorites] = useState([]);
 
-  const updateFavorite = element => {
-    setFavorites(prev => [...prev, element]);
-  };
-
   useEffect(() => {
-    console.log('favorites', favorites);
+    // console.log('favorites', favorites);
     localStorage.setItem('Favorites', JSON.stringify(favorites));
   }, [favorites]);
 
+  const addFavorite = element => {
+    setFavorites(prev => [...prev, element]);
+  };
+
+  const removeFavorite = element => {
+    const newFavorites = favorites.filter(carId => element !== carId);
+    setFavorites(newFavorites);
+  };
+
   useEffect(() => {
     if (carsList.length > 0) {
+      // console.log('useeffect rejected!!!');
       return;
     }
+    // console.log('useeffect request');
     dispatch(getCarsThunk());
     // console.log('on mount');
   }, [dispatch, carsList.length]);
@@ -53,10 +60,10 @@ const CarList = () => {
     dispatch(setPage(newPage));
     dispatch(getCarsThunk(newPage));
 
-    window.scrollTo({
-      top: 0,
-      behavior: 'auto',
-    });
+    // window.scrollTo({
+    //   top: 0,
+    //   behavior: 'auto',
+    // });
   };
 
   return (
@@ -77,8 +84,9 @@ const CarList = () => {
                 />
                 <FavoriteIcon
                   id={car.id}
-                  updateState={updateFavorite}
+                  addFavorite={addFavorite}
                   favoritesArr={favorites}
+                  removeFavorite={removeFavorite}
                 />
                 <p className={css.makeyear}>
                   {car.make}
