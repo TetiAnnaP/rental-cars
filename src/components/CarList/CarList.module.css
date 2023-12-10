@@ -91,3 +91,22 @@
   font-size: 16px;
   font-weight: 500;
 }
+
+.characterList {
+  display: flex;
+  row-gap: 4px;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 400;
+  color: #7b7c7e;
+}
+
+.characterItem {
+  padding: 4px;
+}
+
+.characterItem:not(:last-child) {
+  border-right: solid 1px #e7e7e8;
+}

@@ -1,5 +1,5 @@
-import Form from '../../components/Form/Form';
-import CarList from '../../components/CarList/CarList';
+import Form from '../components/Form/Form';
+import CarList from '../components/CarList/CarList';
 
 const Catalog = () => {
   return (

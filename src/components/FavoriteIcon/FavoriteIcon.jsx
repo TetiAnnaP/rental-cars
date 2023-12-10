@@ -1,26 +1,27 @@
 import { ReactSVG } from 'react-svg';
 import heart from 'images/heart.svg';
 import css from './FavoriteIcon.module.css';
-import { useSelector } from 'react-redux';
-import { selectCarList } from 'redux/carReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addFavorite,
+  removeFavorite,
+  selectFavorites,
+} from 'redux/favoritesReducer';
 
-const FavoriteIcon = ({ id, addFavorite, favoritesArr, removeFavorite }) => {
-  const cars = useSelector(selectCarList);
+const FavoriteIcon = ({ car }) => {
+  const dispatch = useDispatch();
+
+  const favoriteCars = useSelector(selectFavorites);
+
   const favorite =
-    favoritesArr.length > 0 && favoritesArr.find(el => el === id);
+    favoriteCars.length > 0 && favoriteCars.some(el => el.id === car.id);
 
   const handleClick = () => {
-    const car = cars.find(el => el.id === id);
-    const isInFavorite =
-      favoritesArr.length > 0 && favoritesArr.find(fav => fav === car.id);
-
-    if (isInFavorite) {
-      removeFavorite(car.id);
+    if (favorite) {
+      dispatch(removeFavorite(car.id));
     } else {
-      addFavorite(car.id);
+      dispatch(addFavorite(car));
     }
-    console.log('id', id);
-    console.log('favoritesArr', favoritesArr);
   };
 
   return (

@@ -11,14 +11,17 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { carReducer } from './carReducer';
+import { favoritesReducer } from './favoritesReducer';
 
 const rootReducer = combineReducers({
   cars: carReducer,
+  favorites: favoritesReducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
+  whitelist: ['favorites', 'carList'],
 };
 
 const persistedReduser = persistReducer(persistConfig, rootReducer);

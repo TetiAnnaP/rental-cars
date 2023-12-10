@@ -1,5 +1,5 @@
 import css from './CarList.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import FavoriteIcon from 'components/FavoriteIcon/FavoriteIcon';
 import templCar from '../../images/templ.png';
 import { nanoid } from 'nanoid';
@@ -21,30 +21,11 @@ const CarList = () => {
   const carsList = useSelector(selectCarList);
   const showModal = useSelector(selectShowModal);
 
-  const [favorites, setFavorites] = useState([]);
-
-  useEffect(() => {
-    // console.log('favorites', favorites);
-    localStorage.setItem('Favorites', JSON.stringify(favorites));
-  }, [favorites]);
-
-  const addFavorite = element => {
-    setFavorites(prev => [...prev, element]);
-  };
-
-  const removeFavorite = element => {
-    const newFavorites = favorites.filter(carId => element !== carId);
-    setFavorites(newFavorites);
-  };
-
   useEffect(() => {
     if (carsList.length > 0) {
-      // console.log('useeffect rejected!!!');
       return;
     }
-    // console.log('useeffect request');
     dispatch(getCarsThunk());
-    // console.log('on mount');
   }, [dispatch, carsList.length]);
 
   const handleBtnLearnMoreClick = e => {
@@ -59,11 +40,6 @@ const CarList = () => {
     const newPage = page + 1;
     dispatch(setPage(newPage));
     dispatch(getCarsThunk(newPage));
-
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: 'auto',
-    // });
   };
 
   return (
@@ -82,23 +58,35 @@ const CarList = () => {
                     e.currentTarget.src = templCar;
                   }}
                 />
-                <FavoriteIcon
-                  id={car.id}
-                  addFavorite={addFavorite}
-                  favoritesArr={favorites}
-                  removeFavorite={removeFavorite}
-                />
+                <FavoriteIcon car={car} />
                 <p className={css.makeyear}>
                   {car.make}
                   <span className={css.span}> {car.model} </span>, {car.year}
                   <span className={css.price}>{car.rentalPrice}</span>
                 </p>
-                <p className={css.accessories}>
-                  {car.address} | {car.rentalCompany}
-                </p>
-                <p className={css.accessories}>
-                  {car.type} | {car.id} | {car.accessories[0]}
-                </p>
+                <ul className={css.characterList}>
+                  <li className={css.characterItem}>
+                    {car.address.split(',').slice(1, 2).join(' ')}
+                  </li>
+                  <li className={css.characterItem}>
+                    {car.address.split(',').slice(2, 3).join(' ')}
+                  </li>
+                  <li className={css.characterItem}>{car.rentalCompany}</li>
+                </ul>
+
+                <ul className={css.characterList}>
+                  <li className={css.characterItem}>{car.type}</li>
+                  <li className={css.characterItem}>{car.model}</li>
+                  <li className={css.characterItem}>{car.id}</li>
+                  <li className={css.characterItem}>
+                    {car.accessories
+                      .slice(0, 1)
+                      .join()
+                      .split(' ')
+                      .slice(-3)
+                      .join(' ')}
+                  </li>
+                </ul>
               </div>
 
               <button
