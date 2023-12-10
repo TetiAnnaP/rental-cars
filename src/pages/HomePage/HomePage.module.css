@@ -1,0 +1,52 @@
+.phone {
+  display: block;
+  color: #3470ff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 24px;
+  text-align: right;
+  margin-top: -24px;
+}
+
+.title {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.secondaryTitle {
+  text-transform: uppercase;
+  color: #8a8a89;
+  margin: 0 0 40px 0;
+}
+
+.contaiter {
+  margin-left: 352px;
+  margin-bottom: 40px;
+}
+
+.subtitle {
+  font-size: 20px;
+  margin: 0 0 4px 0;
+}
+
+.text {
+  color: #8a8a89;
+  margin: 0 0 20px 0;
+}
+
+.btn {
+  margin-left: 352px;
+  padding: 16px 0 16px 0;
+  display: block;
+  width: 136px;
+  /* height: 44px; */
+  border: none;
+  border-radius: 12px;
+  background-color: #3470ff;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 600;
+  color: white;
+}

@@ -1,6 +1,6 @@
 import css from './App.module.css';
 import { NavLink, Routes, Route } from 'react-router-dom';
-import HomePage from '../../pages/HomePage';
+import HomePage from '../../pages/HomePage/HomePage';
 import Catalog from '../../pages/Catalog';
 import Favorites from '../../pages/Favorites';
 

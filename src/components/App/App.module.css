@@ -2,12 +2,16 @@
   font-family: 'Manrope', sans-serif;
   width: 1440px;
   padding: 75px 128px 150px 128px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .header {
   display: flex;
   gap: 20px;
-  margin-bottom: 75px;
+  height: 52px;
+  margin-bottom: 44px;
+  box-shadow: -12px 25px 7px -23px rgba(152, 178, 230, 0.58);
 }
 
 .link {
