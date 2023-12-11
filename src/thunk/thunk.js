@@ -1,5 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getCarById, getCars } from 'components/services/services';
+import {
+  getCarById,
+  getCars,
+  getCarsByBrand,
+} from 'components/services/services';
 
 export const getCarsThunk = createAsyncThunk(
   'cars/get',
@@ -19,6 +23,19 @@ export const getCarByIdThunk = createAsyncThunk(
   async (id, thunkApi) => {
     try {
       const data = await getCarById(id);
+
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getCarsByBrandThunk = createAsyncThunk(
+  'carsByBrand/get',
+  async (brand, thunkApi) => {
+    try {
+      const data = await getCarsByBrand(brand);
 
       return data;
     } catch (error) {

@@ -1,9 +1,11 @@
+import Select from '../Select/SelectBrand';
 import css from './Form.module.css';
 
 const Form = () => {
   return (
     <form className={css.form}>
-      <label className={css.label}>
+      <Select />
+      {/* <label className={css.label}>
         Car brand
         <input
           className={`${css.input} ${css.brand}`}
@@ -11,7 +13,7 @@ const Form = () => {
           name="brand"
           placeholder="Enter the text"
         ></input>
-      </label>
+      </label> */}
       <label className={css.label}>
         Price/ 1 hour
         <input

@@ -15,3 +15,11 @@ export const getCarById = async id => {
 
   return data;
 };
+
+export const getCarsByBrand = async brand => {
+  const { data } = await axios.get(
+    `https://64f3a2bfedfa0459f6c6b959.mockapi.io/cars/?make=${brand}`
+  );
+
+  return data;
+};

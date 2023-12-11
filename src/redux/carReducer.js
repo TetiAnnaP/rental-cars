@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getCarByIdThunk, getCarsThunk } from '../thunk/thunk';
+import {
+  getCarByIdThunk,
+  getCarsByBrandThunk,
+  getCarsThunk,
+} from '../thunk/thunk';
 
 const initialState = {
-  // allCars: [],
   carsList: [],
   carById: [],
   page: 1,
@@ -41,11 +44,9 @@ const carsSlice = createSlice({
       })
       .addCase(getCarsThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        // console.log('state.carsList ', state.carsList);
-        // console.log('payload', action.payload);
+
         state.carsList.push(...action.payload);
         state.error = '';
-        // return [...state.carsList, ...action.payload];
       })
       .addCase(getCarsThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -62,29 +63,23 @@ const carsSlice = createSlice({
       .addCase(getCarByIdThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(getCarsByBrandThunk.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(getCarsByBrandThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.carsList = action.payload;
+        state.error = '';
+      })
+      .addCase(getCarsByBrandThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       }),
-  // .addCase(getAllCarsThunk.pending, state => {
-  //   state.isLoading = true;
-  // })
-  // .addCase(getAllCarsThunk.fulfilled, (state, action) => {
-  //   state.isLoading = false;
-  //   state.allCars = action.payload;
-  //   state.error = '';
-  // })
-  // .addCase(getAllCarsThunk.rejected, (state, action) => {
-  //   state.isLoading = false;
-  //   state.error = action.payload;
-  // }),
 });
 
-export const {
-  setPage,
-  setError,
-  setId,
-  setShowModal,
-  setCarById,
-  // setAllCars,
-} = carsSlice.actions;
+export const { setPage, setError, setId, setShowModal, setCarById } =
+  carsSlice.actions;
 
 export const selectCarList = state => state.cars.carsList;
 export const selectPage = state => state.cars.page;
