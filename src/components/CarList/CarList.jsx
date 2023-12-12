@@ -6,6 +6,7 @@ import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectCarList,
+  selectDisabled,
   selectPage,
   selectShowModal,
   setId,
@@ -20,6 +21,7 @@ const CarList = () => {
   const page = useSelector(selectPage);
   const carsList = useSelector(selectCarList);
   const showModal = useSelector(selectShowModal);
+  const disabled = useSelector(selectDisabled);
 
   useEffect(() => {
     if (carsList.length > 0) {
@@ -101,14 +103,16 @@ const CarList = () => {
           </li>
         ))}
       </ul>
+      {!disabled && (
+        <button
+          className={css.btnLoadMore}
+          type="button"
+          onClick={handleBtnLoadMoreClick}
+        >
+          Load more
+        </button>
+      )}
 
-      <button
-        className={css.btnLoadMore}
-        type="button"
-        onClick={handleBtnLoadMoreClick}
-      >
-        Load more
-      </button>
       {showModal && <Modal />}
     </>
   );

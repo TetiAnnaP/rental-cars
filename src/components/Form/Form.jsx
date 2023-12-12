@@ -1,19 +1,30 @@
+import { useState } from 'react';
 import Select from '../Select/SelectBrand';
 import css from './Form.module.css';
+import { useDispatch } from 'react-redux';
+import { getCarsByBrandThunk } from 'thunk/thunk';
 
 const Form = () => {
+  const [value, setValue] = useState('');
+  const dispatch = useDispatch();
+
+  const getValue = value => {
+    console.log(value);
+    setValue(value);
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch(getCarsByBrandThunk(value));
+  };
+
   return (
-    <form className={css.form}>
-      <Select />
-      {/* <label className={css.label}>
+    <form className={css.form} onSubmit={handleSubmit}>
+      <label className={css.label}>
         Car brand
-        <input
-          className={`${css.input} ${css.brand}`}
-          type="text"
-          name="brand"
-          placeholder="Enter the text"
-        ></input>
-      </label> */}
+        <Select getValue={getValue} />
+      </label>
+
       <label className={css.label}>
         Price/ 1 hour
         <input

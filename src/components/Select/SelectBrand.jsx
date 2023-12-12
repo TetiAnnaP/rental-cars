@@ -1,8 +1,5 @@
 import Select from 'react-select';
 import makes from './makes.json';
-// import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getCarsByBrandThunk } from 'thunk/thunk';
 
 const allOption = {
   value: 'all',
@@ -17,23 +14,42 @@ const options = [
   })),
 ];
 
-const SelectBrand = () => {
-  //   const [selectedOption, setSelectedOption] = useState(null);
-  const dispatch = useDispatch();
-
+const SelectBrand = ({ getValue }) => {
   const handleSelectedOption = ({ value }) => {
-    console.log(value);
-    dispatch(getCarsByBrandThunk(value));
+    getValue(value);
   };
 
   return (
     <div className="App">
-      {console.log(options)}
       <Select
         placeholder="Enter the text"
-        // defaultValue={selectedOption}
         onChange={handleSelectedOption}
         options={options}
+        styles={{
+          control: (baseStyles, state) => ({
+            ...baseStyles,
+
+            paddingLeft: '18px',
+            marginTop: '8px',
+            marginRight: '18px',
+            height: '48px',
+            width: '224px',
+            border: 'none',
+            borderRadius: '14px',
+            backgroundColor: '#f7f7fb',
+            fontWeight: '500',
+            fontSize: '18px',
+            outline: 'none',
+          }),
+          option: (baseStyles, state) => ({
+            ...baseStyles,
+            color: state.isFocused ? '#121417' : '#D0D0D1',
+            backgroundColor: '#FFFFFF',
+            fontWeight: '500',
+            fontSize: '16px',
+            marginBottom: '8px',
+          }),
+        }}
       />
     </div>
   );

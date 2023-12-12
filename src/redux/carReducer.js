@@ -4,6 +4,7 @@ import {
   getCarsByBrandThunk,
   getCarsThunk,
 } from '../thunk/thunk';
+import * as carsSelectors from '../components/selectors';
 
 const initialState = {
   carsList: [],
@@ -13,6 +14,7 @@ const initialState = {
   isLoading: false,
   id: '',
   showModal: false,
+  disabled: false,
 };
 
 const carsSlice = createSlice({
@@ -41,12 +43,17 @@ const carsSlice = createSlice({
     builder
       .addCase(getCarsThunk.pending, state => {
         state.isLoading = true;
+        state.disabled = false;
       })
       .addCase(getCarsThunk.fulfilled, (state, action) => {
         state.isLoading = false;
 
         state.carsList.push(...action.payload);
         state.error = '';
+        if (action.payload.length < 12) {
+          state.disabled = true;
+          state.page = 1;
+        }
       })
       .addCase(getCarsThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -81,13 +88,15 @@ const carsSlice = createSlice({
 export const { setPage, setError, setId, setShowModal, setCarById } =
   carsSlice.actions;
 
-export const selectCarList = state => state.cars.carsList;
-export const selectPage = state => state.cars.page;
-export const selectError = state => state.cars.error;
-export const selectIsLoading = state => state.cars.isLoading;
-export const selectId = state => state.cars.id;
-export const selectCarById = state => state.cars.carById;
-export const selectShowModal = state => state.cars.showModal;
-// export const selectAllCars = state => state.cars.allCars;
+export const {
+  selectCarList,
+  selectPage,
+  selectError,
+  selectIsLoading,
+  selectId,
+  selectCarById,
+  selectShowModal,
+  selectDisabled,
+} = carsSelectors;
 
 export const carReducer = carsSlice.reducer;
