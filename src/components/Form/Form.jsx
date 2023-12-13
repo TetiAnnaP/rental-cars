@@ -9,13 +9,14 @@ const Form = () => {
   const dispatch = useDispatch();
 
   const getValue = value => {
-    console.log(value);
     setValue(value);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(getCarsByBrandThunk(value));
+    if (value) {
+      dispatch(getCarsByBrandThunk(value));
+    }
   };
 
   return (
@@ -35,7 +36,7 @@ const Form = () => {
         ></input>
       </label>
       <label className={css.label}>
-        Сar mileage / km
+        Car mileage / km
         <input
           className={`${css.input} ${css.from}`}
           type="text"
