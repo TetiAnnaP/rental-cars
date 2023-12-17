@@ -21,7 +21,7 @@ export const App = () => {
           Catalog
         </NavLink>
         <NavLink
-          to="favorites"
+          to="/favorites"
           className={({ isActive }) => (isActive ? css.active : css.link)}
         >
           Favorites
@@ -31,7 +31,7 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/catalog" element={<Catalog />}></Route>
-          <Route path="favorites" element={<Favorites />}></Route>
+          <Route path="/favorites" element={<Favorites />}></Route>
         </Routes>
       </main>
     </div>
