@@ -2,7 +2,7 @@
   "name": "rental-cars",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://tetiannap.github.io/rental-cars/",
+  "homepage": "https://tetiannap.github.io/rental-cars/", 
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.16.3",
